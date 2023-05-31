@@ -1,0 +1,6 @@
+__pycache__/
+carrots_game/__pycache__/
+face_game/__pycache__/
+.DS_Store
+carrots_game/.DS_Store
+face_game/.DS_Store
