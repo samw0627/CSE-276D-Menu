@@ -37,14 +37,16 @@ def showFullScreen(screen, faceButton):
     screen.fill(bg)
 
 # create all facebutton objects
-faceXStartCoords = 75
-# add 150 every time
-rank0Face = faceButton("smile_1.png", faceXStartCoords, 200)
-rank1Face = faceButton("smile_1.png", faceXStartCoords + 150 * 1, 200)
-rank2Face = faceButton("smile_1.png", faceXStartCoords + 150 * 2, 200)
-rank3Face = faceButton("smile_1.png", faceXStartCoords + 150 * 3, 200)
-rank4Face = faceButton("smile_1.png", faceXStartCoords + 150 * 4, 200)
-rank5Face = faceButton("smile_1.png", faceXStartCoords + 150 * 5, 200)
+faceXStartCoords = 35
+faceYCoords = 200
+faceWidthOffsets = 165
+
+rank0Face = faceButton("smile_1.png", faceXStartCoords, faceYCoords)
+rank1Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 1, faceYCoords)
+rank2Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 2, faceYCoords)
+rank3Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 3, faceYCoords)
+rank4Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 4, faceYCoords)
+rank5Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 5, faceYCoords)
 
 screen.fill(bg)
 
