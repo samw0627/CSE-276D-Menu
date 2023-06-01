@@ -1,5 +1,6 @@
 import pygame
 import os
+import sys
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -54,6 +55,8 @@ while True:
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			pygame.quit()
+			# pygame.display.quit()
+			sys.exit()
 
 		if event.type == pygame.MOUSEBUTTONDOWN:
 			mouse_pos = event.pos  # gets mouse position
