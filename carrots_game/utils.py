@@ -49,7 +49,7 @@ GROUND_POS_Y = 400
 
 #background
 BACKGROUND_IMG = 'assets/background.png'
-MENUE_BACKGROUND = (135, 206, 235)
+MENU_BACKGROUND = (135, 206, 235)
 DISPLAY_DURATION = 1000
 #sound
 SOUND_DIR = '/sound'

@@ -9,6 +9,7 @@ from utils import *
 
 pygame.init()
 clock = pygame.time.Clock()
+_display_surf = pygame.display.set_mode((WIDTH, HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
 
 class bunny:
     def __init__(self, speed):
@@ -114,7 +115,7 @@ class control:
         
         
         #set the size of the window 
-        self._display_surf = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
+        self._display_surf = _display_surf
         pygame.display.set_caption(GAME_NAME)
         
         self.background = pygame.image.load(BACKGROUND_IMG)  
@@ -191,10 +192,10 @@ class control:
 
 def show_menu(num_hearts,scores):
     running = True
-    _display_surf = pygame.display.set_mode((WIDTH, HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
+    # _display_surf = pygame.display.set_mode((WIDTH, HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
     while running:
         
-        _display_surf.fill(MENUE_BACKGROUND)
+        _display_surf.fill(MENU_BACKGROUND)
         font = pygame.font.Font('freesansbold.ttf', 30)
         
         if num_hearts == 0:
@@ -219,9 +220,8 @@ def show_menu(num_hearts,scores):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
-            if event.type == pygame.KEYDOWN:
-                
+                # pygame.quit()
+            elif event.type == pygame.KEYDOWN:
                 _control = control()
                 _control.on_execute()    
         clock.tick(FPS)
