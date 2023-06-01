@@ -134,8 +134,9 @@ class control:
  
     def on_event(self, event):
         if event.type == pygame.QUIT:
-            # self._running = False
             pygame.quit()
+            self._running = False
+            sys.exit()
             
     def on_loop(self):
         #TODO: replaced by touchPad input later
@@ -219,14 +220,15 @@ def show_menu(num_hearts,scores):
         pygame.time.wait(DISPLAY_DURATION)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                pygame.quit()
                 running = False
-                # pygame.quit()
             elif event.type == pygame.KEYDOWN:
                 _control = control()
                 _control.on_execute()    
         clock.tick(FPS)
         
     pygame.quit()
+    sys.exit()
                 
 if __name__ == "__main__" :
     show_menu(NUM_HEARTS, 0)  
