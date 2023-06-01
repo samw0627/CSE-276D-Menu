@@ -25,7 +25,7 @@ class faceButton:
 		self.fullscreenImgRect = self.fullscreenImg.get_rect()
 		self.button = pygame.Rect(x, y, FACE_WIDTH, FACE_HEIGHT)
 
-def showFullScreen(screen, faceButton):
+def showFullScreen(screen, faceButton, mouse_pos):
     # fill the screen with the background color to clear the original buttons
     # blit on the full screen image, and update the display
     # wait specified time, then go back to the original display
@@ -37,58 +37,60 @@ def showFullScreen(screen, faceButton):
     pygame.time.wait(int(WAIT_TIME_SECONDS * 1000))
     screen.fill(bg)
 
-# create all facebutton objects
-faceXStartCoords = 35
-faceYCoords = 200
-faceWidthOffsets = 165
 
-rank0Face = faceButton("smile_1.png", faceXStartCoords, faceYCoords)
-rank1Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 1, faceYCoords)
-rank2Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 2, faceYCoords)
-rank3Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 3, faceYCoords)
-rank4Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 4, faceYCoords)
-rank5Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 5, faceYCoords)
+def main(): 
+	# create all facebutton objects
+	faceXStartCoords = 35
+	faceYCoords = 200
+	faceWidthOffsets = 165
 
-screen.fill(bg)
+	rank0Face = faceButton("smile_1.png", faceXStartCoords, faceYCoords)
+	rank1Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 1, faceYCoords)
+	rank2Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 2, faceYCoords)
+	rank3Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 3, faceYCoords)
+	rank4Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 4, faceYCoords)
+	rank5Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 5, faceYCoords)
 
-while True:
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-			pygame.quit()
-			# pygame.display.quit()
-			sys.exit()
+	screen.fill(bg)
 
-		if event.type == pygame.MOUSEBUTTONDOWN:
-			mouse_pos = event.pos  # gets mouse position
+	while True:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				# pygame.display.quit()
+				sys.exit()
 
-			if rank0Face.button.collidepoint(mouse_pos):
-				showFullScreen(screen, rank0Face)
-			elif rank1Face.button.collidepoint(mouse_pos):
-				showFullScreen(screen, rank1Face)
-			elif rank2Face.button.collidepoint(mouse_pos):
-				showFullScreen(screen, rank2Face)
-			elif rank3Face.button.collidepoint(mouse_pos):
-				showFullScreen(screen, rank3Face)
-			elif rank4Face.button.collidepoint(mouse_pos):
-				showFullScreen(screen, rank4Face)
-			elif rank5Face.button.collidepoint(mouse_pos):
-				showFullScreen(screen, rank5Face)
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				mouse_pos = event.pos  # gets mouse position
 
-	# draw all buttons
-	pygame.draw.rect(screen, [255, 0, 0], rank0Face.button) 
-	pygame.draw.rect(screen, [255, 0, 0], rank1Face.button) 
-	pygame.draw.rect(screen, [255, 0, 0], rank2Face.button)
-	pygame.draw.rect(screen, [255, 0, 0], rank3Face.button)
-	pygame.draw.rect(screen, [255, 0, 0], rank4Face.button)
-	pygame.draw.rect(screen, [255, 0, 0], rank5Face.button)
+				if rank0Face.button.collidepoint(mouse_pos):
+					showFullScreen(screen, rank0Face, mouse_pos)
+				elif rank1Face.button.collidepoint(mouse_pos):
+					showFullScreen(screen, rank1Face, mouse_pos)
+				elif rank2Face.button.collidepoint(mouse_pos):
+					showFullScreen(screen, rank2Face, mouse_pos)
+				elif rank3Face.button.collidepoint(mouse_pos):
+					showFullScreen(screen, rank3Face, mouse_pos)
+				elif rank4Face.button.collidepoint(mouse_pos):
+					showFullScreen(screen, rank4Face, mouse_pos)
+				elif rank5Face.button.collidepoint(mouse_pos):
+					showFullScreen(screen, rank5Face, mouse_pos)
 
-    # blit on all buttons
-	screen.blit(rank0Face.img, rank0Face.img.get_rect(center = rank0Face.button.center))
-	screen.blit(rank1Face.img, rank1Face.img.get_rect(center = rank1Face.button.center))
-	screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank2Face.button.center))
-	screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank3Face.button.center))
-	screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank4Face.button.center))
-	screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank5Face.button.center))
-	
-	pygame.display.update()
-	clock.tick(fps)
+		# draw all buttons
+		pygame.draw.rect(screen, [255, 0, 0], rank0Face.button) 
+		pygame.draw.rect(screen, [255, 0, 0], rank1Face.button) 
+		pygame.draw.rect(screen, [255, 0, 0], rank2Face.button)
+		pygame.draw.rect(screen, [255, 0, 0], rank3Face.button)
+		pygame.draw.rect(screen, [255, 0, 0], rank4Face.button)
+		pygame.draw.rect(screen, [255, 0, 0], rank5Face.button)
+
+		# blit on all buttons
+		screen.blit(rank0Face.img, rank0Face.img.get_rect(center = rank0Face.button.center))
+		screen.blit(rank1Face.img, rank1Face.img.get_rect(center = rank1Face.button.center))
+		screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank2Face.button.center))
+		screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank3Face.button.center))
+		screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank4Face.button.center))
+		screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank5Face.button.center))
+		
+		pygame.display.update()
+		clock.tick(fps)

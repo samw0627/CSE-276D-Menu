@@ -1,6 +1,7 @@
 import pygame
 import pygame_menu
 import bunnyjump
+import pediatric_pain_scale
 
 pygame.init()
 surface = pygame.display.set_mode((1024, 600))
@@ -8,6 +9,7 @@ surface = pygame.display.set_mode((1024, 600))
 
 def start_pain_scale():
     # Do the job here !
+    pediatric_pain_scale.main()
     pass
 
 def start_bunny_game():
