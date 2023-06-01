@@ -44,7 +44,7 @@ class control:
         if event.type == pygame.QUIT:
             self._running = False
     
-        if event.type == pygame.KEYDOWN:
+        elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
                 self._face = self.faces.getSillyFace()
                 self._mixer.load(self.sound.getSillySound())
@@ -54,6 +54,11 @@ class control:
                 self._face = self.faces.getCuriousFace() 
                 self._mixer.load(self.sound.getCuriousSound())
                 self._mixer.play(2)
+            
+            #Exit the game in fullscreen mode    
+            elif event.key == pygame.K_ESCAPE:
+                self._running = False
+                self.on_cleanup()
                 
             self.home_state = False 
         

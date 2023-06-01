@@ -134,9 +134,11 @@ class control:
  
     def on_event(self, event):
         if event.type == pygame.QUIT:
-            pygame.quit()
-            self._running = False
-            sys.exit()
+            self.on_cleanup()
+        
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                self.on_cleanup()
             
     def on_loop(self):
         #TODO: replaced by touchPad input later
@@ -191,6 +193,11 @@ class control:
         
         show_menu(0,self.score_board.scores)    
 
+    def on_cleanup(self):
+        pygame.quit()
+        self._running = False
+        sys.exit()
+        
 def show_menu(num_hearts,scores):
     running = True
     # _display_surf = pygame.display.set_mode((WIDTH, HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
@@ -220,11 +227,16 @@ def show_menu(num_hearts,scores):
         pygame.time.wait(DISPLAY_DURATION)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
+                # pygame.quit()
                 running = False
+                # sys.exit()
+                
             elif event.type == pygame.KEYDOWN:
-                _control = control()
-                _control.on_execute()    
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+                else:    
+                    _control = control()
+                    _control.on_execute()    
         clock.tick(FPS)
         
     pygame.quit()
