@@ -1,11 +1,104 @@
-from facialExpression import facialExpression
-from touchPad import touchPad
-from sound import sound
+# from facialExpression import facialExpression
+# from touchPad import touchPad
+# from sound import sound
 import pygame
 from pygame import mixer
 from pygame.locals import *
 from utils import *
 import sys
+import os
+
+class facialExpression:
+    def __init__(self, dir_path):
+        self.dir_path = dir_path
+        self.happy = {}
+        self.silly = {}
+        self.curious = {}
+        self.smile = {}
+        self.storeFaces()
+        
+    def storeFaces(self):
+        dir = os.getcwd()+self.dir_path
+        for img_path in os.listdir(dir):
+            img = os.path.join(dir, img_path)
+            if os.path.isfile(img):
+                # file_name, _ = os.path.splitext(img)
+                if 'happy' in img:
+                    if '1' in img:
+                        self.happy[OPEN] = img
+                    else:
+                        self.happy[BLINK]= img
+                    
+                elif 'silly' in img:
+                    if '1' in img:
+                        self.silly[OPEN] = img
+                    else:
+                        self.silly[BLINK]= img
+                elif 'curious' in img:
+                    if '1' in img:
+                        self.curious[OPEN] = img
+                    else:
+                        self.curious[BLINK]= img
+                else:
+                    if '1' in img:
+                        self.smile[OPEN] = img
+                    else:
+                        self.smile[BLINK]= img
+    
+    def getHappyFace(self):
+        return self.happy
+    def getSillyFace(self):
+        return self.silly
+    def getCuriousFace(self):
+        return self.curious
+    def getSmileFace(self):
+        return self.smile
+    
+import os
+from utils import *
+
+class sound:
+    def __init__(self, dir_path):
+        self.dir_path = dir_path
+        self.happy = None
+        self.silly = None
+        self.curious = None
+        self.smile = None
+        self.storeSound()
+    
+    def storeSound(self):
+        dir = os.getcwd() + self.dir_path 
+        for Sound_path in os.listdir(dir):
+            Sound = os.path.join(dir,Sound_path)
+            if os.path.isfile(Sound):
+                if 'happy' in Sound:
+                    self.happy = Sound
+                elif 'silly' in Sound:
+                    self.silly = Sound
+                elif 'curious' in Sound:
+                    self.curious = Sound
+                else:
+                    self.smile = Sound
+            
+    def getHappySound(self):
+        return self.happy
+    def getSillySound(self):
+        return self.silly
+    def getCuriousSound(self):
+        return self.curious
+    def getSmileSound(self):
+        return self.smile
+
+class touchPad:
+    def __init__(self):
+        self.state = HOME
+    
+    #TODO: getting the state from the touch sensor   
+    def setState(self):
+        pass
+        
+    def getState(self):
+        return self.state
 
 class control:
     def __init__(self):
@@ -17,7 +110,7 @@ class control:
         self._count = 0
         self.faces = facialExpression(FACE_IMG_DIR)
         self.touch = touchPad()
-        self.sound = sound(SOUND_DIR)
+        self.sound = sound(FACES_SOUND_DIR)
         
         self._face = None
         self.display_face = None
@@ -35,7 +128,8 @@ class control:
         # self._mixer.set_volume(1.0)
         
         self._display = pygame.display
-        self._display_surf = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.FULLSCREEN)
+        self._display_surf = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF )
+                                                    #  | pygame.FULLSCREEN)
         self._running = True
         
         self.reset_state()  

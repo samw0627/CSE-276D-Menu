@@ -7,9 +7,10 @@ from pygame.locals import *
 from utils import *
 
 
-pygame.init()
+# pygame.init()
 clock = pygame.time.Clock()
-_display_surf = pygame.display.set_mode((WIDTH, HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.FULLSCREEN)
+_display_surf = pygame.display.set_mode((WIDTH, HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
+                                        # | pygame.FULLSCREEN)
 
 class bunny:
     def __init__(self, speed):
@@ -241,6 +242,7 @@ def show_menu(num_hearts,scores):
         
     pygame.quit()
     sys.exit()
-                
-if __name__ == "__main__" :
-    show_menu(NUM_HEARTS, 0)  
+
+       
+# if __name__ == "__main__" :
+#     show_menu(NUM_HEARTS, 0)  
