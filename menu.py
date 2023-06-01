@@ -1,8 +1,9 @@
 import pygame
 import pygame_menu
+import bunnyjump
 
 pygame.init()
-surface = pygame.display.set_mode((600, 400))
+surface = pygame.display.set_mode((1024, 600))
 
 
 def start_pain_scale():
@@ -11,13 +12,14 @@ def start_pain_scale():
 
 def start_bunny_game():
     # Do the job here !
-    pass
+    bunnyjump.menu(death_count=0)
+    # pass
 
 def start_bunny_face():
     # Do the job here !
     pass
 
-menu = pygame_menu.Menu('BunnyBot', 600, 400,
+menu = pygame_menu.Menu('BunnyBot', 1024, 600,
                        theme=pygame_menu.themes.THEME_SOLARIZED)
 HELP = 'Hello there! Select a mode to begin. ' \
 
