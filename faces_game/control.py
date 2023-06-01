@@ -29,10 +29,10 @@ class control:
         
     def on_init(self):
         pygame.init()
-        mixer.init()
+        # mixer.init()
         
-        self._mixer = mixer.music
-        self._mixer.set_volume(1.0)
+        # self._mixer = mixer.music
+        # self._mixer.set_volume(1.0)
         
         self._display = pygame.display
         self._display_surf = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.FULLSCREEN)
@@ -47,13 +47,13 @@ class control:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
                 self._face = self.faces.getSillyFace()
-                self._mixer.load(self.sound.getSillySound())
-                self._mixer.play(2)
+                # self._mixer.load(self.sound.getSillySound())
+                # self._mixer.play(2)
                 
             elif event.key == pygame.K_s:
                 self._face = self.faces.getCuriousFace() 
-                self._mixer.load(self.sound.getCuriousSound())
-                self._mixer.play(2)
+                # self._mixer.load(self.sound.getCuriousSound())
+                # self._mixer.play(2)
             
             #Exit the game in fullscreen mode    
             elif event.key == pygame.K_ESCAPE:
@@ -77,12 +77,12 @@ class control:
                 self.home_state = True
                 self.reset_state()
                 
-        self._mixer.queue(self.sound.getSmileSound())
+        # self._mixer.queue(self.sound.getSmileSound())
                 
     def reset_state(self):
         self._face = self.faces.getHappyFace() 
-        self._mixer.load(self.sound.getHappySound())
-        self._mixer.play(2)
+        # self._mixer.load(self.sound.getHappySound())
+        # self._mixer.play(2)
         self._count = 0
         
         
