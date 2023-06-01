@@ -5,6 +5,7 @@ import pygame
 from pygame import mixer
 from pygame.locals import *
 from utils import *
+import sys
 
 class control:
     def __init__(self):
@@ -34,7 +35,7 @@ class control:
         self._mixer.set_volume(1.0)
         
         self._display = pygame.display
-        self._display_surf = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
+        self._display_surf = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.FULLSCREEN)
         self._running = True
         
         self.reset_state()  
@@ -97,6 +98,7 @@ class control:
         
     def on_cleanup(self):
         pygame.quit()
+        sys.exit()
  
     def on_execute(self):
         if self.on_init() == False:

@@ -9,7 +9,7 @@ from utils import *
 
 pygame.init()
 clock = pygame.time.Clock()
-_display_surf = pygame.display.set_mode((WIDTH, HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
+_display_surf = pygame.display.set_mode((WIDTH, HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.FULLSCREEN)
 
 class bunny:
     def __init__(self, speed):
