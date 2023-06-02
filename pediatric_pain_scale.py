@@ -16,8 +16,8 @@ fps = 60
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1024
 
-FACE_HEIGHT = 94
-FACE_WIDTH = 160
+FACE_HEIGHT = 150
+FACE_WIDTH = 256
 
 WAIT_TIME_SECONDS = 1
 
@@ -54,16 +54,18 @@ def showFullScreen(screen, faceButton, mouse_pos):
 
 def main(): 
 	# create all facebutton objects
-	faceXStartCoords = 35
-	faceYCoords = 200
-	faceWidthOffsets = 165
+	faceXStartCoords = 50
+	faceYUpperRowCoords = 100
+	faceYLowerRowCoords = 350
 
-	rank0Face = faceButton("Rank0Face.png", faceXStartCoords, faceYCoords)
-	rank1Face = faceButton("Rank1Face.png", faceXStartCoords + faceWidthOffsets * 1, faceYCoords)
-	rank2Face = faceButton("Rank2Face.png", faceXStartCoords + faceWidthOffsets * 2, faceYCoords)
-	rank3Face = faceButton("Rank3Face.png", faceXStartCoords + faceWidthOffsets * 3, faceYCoords)
-	rank4Face = faceButton("Rank4Face.png", faceXStartCoords + faceWidthOffsets * 4, faceYCoords)
-	rank5Face = faceButton("Rank5Face.png", faceXStartCoords + faceWidthOffsets * 5, faceYCoords)
+	faceWidthOffsets = FACE_WIDTH + 75
+
+	rank0Face = faceButton("Rank0Face.png", faceXStartCoords, faceYUpperRowCoords)
+	rank1Face = faceButton("Rank1Face.png", faceXStartCoords + faceWidthOffsets * 1, faceYUpperRowCoords)
+	rank2Face = faceButton("Rank2Face.png", faceXStartCoords + faceWidthOffsets * 2, faceYUpperRowCoords)
+	rank3Face = faceButton("Rank3Face.png", faceXStartCoords + faceWidthOffsets * 0, faceYLowerRowCoords)
+	rank4Face = faceButton("Rank4Face.png", faceXStartCoords + faceWidthOffsets * 1, faceYLowerRowCoords)
+	rank5Face = faceButton("Rank5Face.png", faceXStartCoords + faceWidthOffsets * 2, faceYLowerRowCoords)
 
 	# create menu button object
 	menuButtonObj = menuButton("test_hamburg_menu.png")
