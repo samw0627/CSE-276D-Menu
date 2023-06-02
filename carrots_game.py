@@ -118,8 +118,6 @@ class control:
         self._display_surf = None
         self.size = self.width, self.height = WIDTH, HEIGHT
         
-        
-        
         #set the size of the window 
         self._display_surf = _display_surf
         pygame.display.set_caption(GAME_NAME)
