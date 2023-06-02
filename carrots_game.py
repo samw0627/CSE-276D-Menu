@@ -5,7 +5,8 @@ import sys
 from pygame import mixer
 from pygame.locals import *
 from utils import *
-
+from buttons import menuButton
+import menu as mainMenu
 
 # pygame.init()
 clock = pygame.time.Clock()
@@ -130,6 +131,9 @@ class control:
         self._mixer = None
         self.points = 0
         
+        # create button menu object
+        self.menuButtonObj = menuButton("test_hamburg_menu.png")
+        
     def on_init(self):
         self._running = True
  
@@ -140,6 +144,11 @@ class control:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 self.on_cleanup()
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_pos = event.pos  # gets mouse position
+            if self.menuButtonObj.button.collidepoint(mouse_pos):
+                self._running = False
+                mainMenu.main()
             
     def on_loop(self):
         #TODO: replaced by touchPad input later
@@ -176,6 +185,7 @@ class control:
             meteor.draw(self._display_surf) 
         self.bunny.draw(self._display_surf)
         self.hearts.draw(self._display_surf)
+        self._display_surf.blit(self.menuButtonObj.img, self.menuButtonObj.img.get_rect(center = self.menuButtonObj.button.center))
         pygame.display.flip()
  
     def on_execute(self):
@@ -202,6 +212,7 @@ class control:
 def show_menu(num_hearts,scores):
     running = True
     # _display_surf = pygame.display.set_mode((WIDTH, HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
+    menuButtonObj = menuButton("test_hamburg_menu.png")
     while running:
         
         _display_surf.fill(MENU_BACKGROUND)
@@ -214,7 +225,6 @@ def show_menu(num_hearts,scores):
             scoreRect.center = (WIDTH // 2, HEIGHT // 2 + 50)
             _display_surf.blit(score, scoreRect)
             
-            
         else:
             _display_surf.fill((135, 206, 235))
             text = font.render("Press any Key to Start", True, (0, 0, 0))
@@ -223,6 +233,7 @@ def show_menu(num_hearts,scores):
         textRect.center = (WIDTH // 2, HEIGHT // 2)
         _display_surf.blit(text, textRect)
         _display_surf.blit(pygame.image.load(BUNNY_IMG), (WIDTH // 2 - 20, HEIGHT // 2 - 140))
+        _display_surf.blit(menuButtonObj.img, menuButtonObj.img.get_rect(center = menuButtonObj.button.center))
         pygame.display.update()
         #Add delay for displaying the score 
         pygame.time.wait(DISPLAY_DURATION)
@@ -230,14 +241,17 @@ def show_menu(num_hearts,scores):
             if event.type == pygame.QUIT:
                 # pygame.quit()
                 running = False
-                # sys.exit()
-                
+                # sys.exit()  
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
                 else:    
                     _control = control()
                     _control.on_execute()    
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos  # gets mouse position
+                if menuButtonObj.button.collidepoint(mouse_pos):
+                    mainMenu.main()
         clock.tick(FPS)
         
     pygame.quit()

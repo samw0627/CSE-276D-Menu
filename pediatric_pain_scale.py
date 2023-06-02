@@ -3,9 +3,12 @@ import os
 import sys
 from buttons import menuButton
 
-import menu
+import menu as mainMenu
 
 # make menu button
+# TODO: Add in menu back button everywhere
+# make the enlarged face as HD as the faces_game
+
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -13,20 +16,24 @@ fps = 60
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1024
 
-FACE_HEIGHT = 100
-FACE_WIDTH = 125
+FACE_HEIGHT = 94
+FACE_WIDTH = 160
 
 WAIT_TIME_SECONDS = 1
 
 bg = [255, 255, 255]
 
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+BACKGROUND_IMG = 'carrots_assets/background.png'
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
+# self._display_surf = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF )
+
 
 class faceButton:
 	def __init__(self, imgFileName, x, y) -> None:
 		self.img = pygame.image.load(os.path.join("painscale_assets", imgFileName)).convert_alpha()
 		self.img = pygame.transform.scale(self.img, (FACE_WIDTH, FACE_HEIGHT))
-		self.fullscreenImg = pygame.transform.scale(self.img, (SCREEN_WIDTH, SCREEN_HEIGHT))
+		self.fullscreenImg =  pygame.image.load(os.path.join("painscale_assets", imgFileName))
 		self.fullscreenImgRect = self.fullscreenImg.get_rect()
 		self.button = pygame.Rect(x, y, FACE_WIDTH, FACE_HEIGHT)
 
@@ -38,6 +45,7 @@ def showFullScreen(screen, faceButton, mouse_pos):
     print('button was pressed at {0}'.format(mouse_pos))
     pygame.time.wait(int(0.05 * 1000))
     screen.fill(bg)
+    # self._display_surf.blit(self.display_face, TOP_LEFT)
     screen.blit(faceButton.fullscreenImg, faceButton.fullscreenImgRect)
     pygame.display.update()
     pygame.time.wait(int(WAIT_TIME_SECONDS * 1000))
@@ -61,6 +69,8 @@ def main():
 	menuButtonObj = menuButton("test_hamburg_menu.png")
 
 	screen.fill(bg)
+	# background = pygame.image.load(BACKGROUND_IMG) 
+	# screen.blit(background, (0, 0))
 
 	while True:
 		for event in pygame.event.get():
@@ -86,7 +96,7 @@ def main():
 					showFullScreen(screen, rank5Face, mouse_pos)
 				elif menuButtonObj.button.collidepoint(mouse_pos):
 					# jump back to main menu
-					menu.main()
+					mainMenu.main()
 
 		# draw all buttons
 		# bg = background color, otherwise the blitted image will have a background color

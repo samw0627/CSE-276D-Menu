@@ -7,6 +7,8 @@ from pygame.locals import *
 from utils import *
 import sys
 import os
+from buttons import menuButton
+import menu as mainMenu
 
 class facialExpression:
     def __init__(self, dir_path):
@@ -118,6 +120,9 @@ class control:
         self.home_state = True
         
         self._mixer = None
+
+        # menu button
+        self.menuButtonObj = menuButton("test_hamburg_menu.png")
         
         
     def on_init(self):
@@ -155,6 +160,12 @@ class control:
                 self.on_cleanup()
                 
             self.home_state = False 
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos
+                if self.menuButtonObj.button.collidepoint(mouse_pos):
+                    self._running = False
+                    mainMenu.main()
         
     def on_loop(self):
         #TODO: check for the input from touchPad
@@ -184,6 +195,7 @@ class control:
     def on_render(self):
         self.anime_faces()
         self._display_surf.blit(self.display_face, TOP_LEFT)
+        self._display_surf.blit(self.menuButtonObj.img, self.menuButtonObj.img.get_rect(center = self.menuButtonObj.button.center))
         self._display.update()
     
     def anime_faces(self):

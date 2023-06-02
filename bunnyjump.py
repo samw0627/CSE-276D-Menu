@@ -2,6 +2,8 @@ import pygame
 import os
 import random
 import sys
+from buttons import menuButton
+import menu as mainMenu
 
 pygame.init()
 
@@ -122,6 +124,9 @@ def main():
     obstacles = []
     death_count = 0
 
+    # create menu button object
+    menuButtonObj = menuButton("test_hamburg_menu.png")
+
     def score():
         global points, game_speed
         points += 1
@@ -150,6 +155,11 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
                 sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos  # gets mouse position
+                if menuButtonObj.button.collidepoint(mouse_pos):
+					# jump back to main menu
+                    mainMenu.main()
         
         SCREEN.fill((135, 206, 235))
         userInput = pygame.key.get_pressed()
@@ -174,11 +184,15 @@ def main():
         score()
 
         clock.tick(30)
+        SCREEN.blit(menuButtonObj.img, menuButtonObj.img.get_rect(center = menuButtonObj.button.center))
         pygame.display.update()
 
 def menu(death_count):
     global points
     run = True
+    # create menu button object
+    menuButtonObj = menuButton("test_hamburg_menu.png")
+    
     while run:
         SCREEN.fill((135, 206, 235))
         font = pygame.font.Font('freesansbold.ttf', 30)
@@ -195,6 +209,8 @@ def menu(death_count):
         textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         SCREEN.blit(text, textRect)
         SCREEN.blit(RUNNING[0], (SCREEN_WIDTH // 2 - 20, SCREEN_HEIGHT // 2 - 140))
+        SCREEN.blit(menuButtonObj.img, menuButtonObj.img.get_rect(center = menuButtonObj.button.center))
+
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -202,5 +218,10 @@ def menu(death_count):
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 main()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos 
+                if menuButtonObj.button.collidepoint(mouse_pos):
+                    # jump back to main menu
+                    mainMenu.main()
                 
 # menu(death_count=0)
