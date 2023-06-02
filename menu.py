@@ -27,16 +27,20 @@ def start_bunny_face():
 def start_carrots_game():
     carrots_game.show_menu(NUM_HEARTS, 0)
 
-menu = pygame_menu.Menu('BunnyBot', WIDTH, HEIGHT,
-                       theme=pygame_menu.themes.THEME_SOLARIZED)
-HELP = 'Hello there! Select a mode to begin. ' \
+def main():
+    menu = pygame_menu.Menu('BunnyBot', WIDTH, HEIGHT,
+                        theme=pygame_menu.themes.THEME_SOLARIZED)
+    HELP = 'Hello there! Select a mode to begin. ' \
 
-menu.add.label(HELP, max_char=-1, font_size=20)
-menu.add.button('Pain Scale', start_pain_scale)
-menu.add.button('Bunny Game', start_bunny_game)
-menu.add.button('Bunny Face', start_bunny_face)
-menu.add.button('Carrots Game', start_carrots_game)
+    menu.add.label(HELP, max_char=-1, font_size=20)
+    menu.add.button('Pain Scale', start_pain_scale)
+    menu.add.button('Bunny Game', start_bunny_game)
+    menu.add.button('Bunny Face', start_bunny_face)
+    menu.add.button('Carrots Game', start_carrots_game)
 
-menu.add.button('Quit', pygame_menu.events.EXIT)
+    menu.add.button('Quit', pygame_menu.events.EXIT)
 
-menu.mainloop(surface)
+    menu.mainloop(surface)
+
+if __name__ == "__main__":
+    main()
