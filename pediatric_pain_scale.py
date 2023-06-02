@@ -1,6 +1,11 @@
 import pygame
 import os
 import sys
+from buttons import menuButton
+
+import menu
+
+# make menu button
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -24,6 +29,7 @@ class faceButton:
 		self.fullscreenImg = pygame.transform.scale(self.img, (SCREEN_WIDTH, SCREEN_HEIGHT))
 		self.fullscreenImgRect = self.fullscreenImg.get_rect()
 		self.button = pygame.Rect(x, y, FACE_WIDTH, FACE_HEIGHT)
+
 
 def showFullScreen(screen, faceButton, mouse_pos):
     # fill the screen with the background color to clear the original buttons
@@ -51,6 +57,9 @@ def main():
 	rank4Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 4, faceYCoords)
 	rank5Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 5, faceYCoords)
 
+	# create menu button object
+	menuButtonObj = menuButton("test_hamburg_menu.png")
+
 	screen.fill(bg)
 
 	while True:
@@ -75,14 +84,22 @@ def main():
 					showFullScreen(screen, rank4Face, mouse_pos)
 				elif rank5Face.button.collidepoint(mouse_pos):
 					showFullScreen(screen, rank5Face, mouse_pos)
+				elif menuButtonObj.button.collidepoint(mouse_pos):
+					# jump back to main menu
+					menu.main()
 
 		# draw all buttons
-		pygame.draw.rect(screen, [255, 0, 0], rank0Face.button) 
-		pygame.draw.rect(screen, [255, 0, 0], rank1Face.button) 
-		pygame.draw.rect(screen, [255, 0, 0], rank2Face.button)
-		pygame.draw.rect(screen, [255, 0, 0], rank3Face.button)
-		pygame.draw.rect(screen, [255, 0, 0], rank4Face.button)
-		pygame.draw.rect(screen, [255, 0, 0], rank5Face.button)
+		# bg = background color, otherwise the blitted image will have a background color
+		# that is the screen bg color
+		pygame.draw.rect(screen, bg, rank0Face.button) 
+		pygame.draw.rect(screen, bg, rank1Face.button) 
+		pygame.draw.rect(screen, bg, rank2Face.button)
+		pygame.draw.rect(screen, bg, rank3Face.button)
+		pygame.draw.rect(screen, bg, rank4Face.button)
+		pygame.draw.rect(screen, bg, rank5Face.button)
+
+		# draw menu button
+		pygame.draw.rect(screen, bg, menuButtonObj.button)
 
 		# blit on all buttons
 		screen.blit(rank0Face.img, rank0Face.img.get_rect(center = rank0Face.button.center))
@@ -91,6 +108,9 @@ def main():
 		screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank3Face.button.center))
 		screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank4Face.button.center))
 		screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank5Face.button.center))
+
+		# blit on menu button image
+		screen.blit(menuButtonObj.img, menuButtonObj.img.get_rect(center = menuButtonObj.button.center))
 		
 		pygame.display.update()
 		clock.tick(fps)
