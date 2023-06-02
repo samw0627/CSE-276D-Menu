@@ -5,9 +5,9 @@ from buttons import menuButton
 
 import menu as mainMenu
 
-# make menu button
-# TODO: Add in menu back button everywhere
-# make the enlarged face as HD as the faces_game
+# TODO: 
+# find nice spacing for the pain scale
+# Add in sounds
 
 
 pygame.init()
@@ -21,7 +21,7 @@ FACE_WIDTH = 160
 
 WAIT_TIME_SECONDS = 1
 
-bg = [255, 255, 255]
+bg = [255, 244, 219]
 
 BACKGROUND_IMG = 'carrots_assets/background.png'
 
@@ -58,12 +58,12 @@ def main():
 	faceYCoords = 200
 	faceWidthOffsets = 165
 
-	rank0Face = faceButton("smile_1.png", faceXStartCoords, faceYCoords)
-	rank1Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 1, faceYCoords)
-	rank2Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 2, faceYCoords)
-	rank3Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 3, faceYCoords)
-	rank4Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 4, faceYCoords)
-	rank5Face = faceButton("smile_1.png", faceXStartCoords + faceWidthOffsets * 5, faceYCoords)
+	rank0Face = faceButton("Rank0Face.png", faceXStartCoords, faceYCoords)
+	rank1Face = faceButton("Rank1Face.png", faceXStartCoords + faceWidthOffsets * 1, faceYCoords)
+	rank2Face = faceButton("Rank2Face.png", faceXStartCoords + faceWidthOffsets * 2, faceYCoords)
+	rank3Face = faceButton("Rank3Face.png", faceXStartCoords + faceWidthOffsets * 3, faceYCoords)
+	rank4Face = faceButton("Rank4Face.png", faceXStartCoords + faceWidthOffsets * 4, faceYCoords)
+	rank5Face = faceButton("Rank5Face.png", faceXStartCoords + faceWidthOffsets * 5, faceYCoords)
 
 	# create menu button object
 	menuButtonObj = menuButton("test_hamburg_menu.png")
@@ -115,9 +115,9 @@ def main():
 		screen.blit(rank0Face.img, rank0Face.img.get_rect(center = rank0Face.button.center))
 		screen.blit(rank1Face.img, rank1Face.img.get_rect(center = rank1Face.button.center))
 		screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank2Face.button.center))
-		screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank3Face.button.center))
-		screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank4Face.button.center))
-		screen.blit(rank2Face.img, rank2Face.img.get_rect(center = rank5Face.button.center))
+		screen.blit(rank3Face.img, rank3Face.img.get_rect(center = rank3Face.button.center))
+		screen.blit(rank4Face.img, rank4Face.img.get_rect(center = rank4Face.button.center))
+		screen.blit(rank5Face.img, rank5Face.img.get_rect(center = rank5Face.button.center))
 
 		# blit on menu button image
 		screen.blit(menuButtonObj.img, menuButtonObj.img.get_rect(center = menuButtonObj.button.center))
