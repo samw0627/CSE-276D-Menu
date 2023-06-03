@@ -17,8 +17,8 @@ class menuButton:
     """
 	DEFAULT_X = 20
 	DEFAULT_Y = 20
-	DEFAULT_WIDTH = 25
-	DEFAULT_HEIGHT = 25
+	DEFAULT_WIDTH = 75
+	DEFAULT_HEIGHT = 75
 
 	def __init__(self, imgFileName, x=DEFAULT_X, y=DEFAULT_Y, width=DEFAULT_WIDTH, height=DEFAULT_HEIGHT) -> None:
 		self.width = width

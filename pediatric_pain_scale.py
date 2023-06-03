@@ -6,7 +6,6 @@ from buttons import menuButton
 import menu as mainMenu
 
 # TODO: 
-# find nice spacing for the pain scale
 # Add in sounds
 
 
@@ -55,8 +54,8 @@ def showFullScreen(screen, faceButton, mouse_pos):
 def main(): 
 	# create all facebutton objects
 	faceXStartCoords = 50
-	faceYUpperRowCoords = 100
-	faceYLowerRowCoords = 350
+	faceYUpperRowCoords = 125
+	faceYLowerRowCoords = 375
 
 	faceWidthOffsets = FACE_WIDTH + 75
 
