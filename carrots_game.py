@@ -7,11 +7,15 @@ from pygame.locals import *
 from utils import *
 from buttons import menuButton
 import menu as mainMenu
+import RPi.GPIO as GPIO  
 
 # pygame.init()
 clock = pygame.time.Clock()
+# | pygame.FULLSCREEN) for full screen
 _display_surf = pygame.display.set_mode((WIDTH, HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
-                                        # | pygame.FULLSCREEN)
+GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering  
+GPIO.setup(21, GPIO.IN)    # set GPIO 21 as input  
+GPIO.setup(20, GPIO.IN)    # set GPIO 20 as input                                      
 
 class bunny:
     def __init__(self, speed):
@@ -114,8 +118,6 @@ class control:
         self._display_surf = None
         self.size = self.width, self.height = WIDTH, HEIGHT
         
-        
-        
         #set the size of the window 
         self._display_surf = _display_surf
         pygame.display.set_caption(GAME_NAME)
@@ -152,11 +154,23 @@ class control:
             
     def on_loop(self):
         #TODO: replaced by touchPad input later
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
+        # keys = pygame.key.get_pressed()
+        # if keys[pygame.K_LEFT]:
+        #     self.bunny.move(LEFT)
+        # if keys[pygame.K_RIGHT]:
+        #     self.bunny.move(RIGHT)
+        
+        
+     
+        if GPIO.input(21): # if port 21 == 1  
+            print ("Port 21 is 1/GPIO.HIGH/True - left ear pressed")
             self.bunny.move(LEFT)
-        if keys[pygame.K_RIGHT]:
+        elif GPIO.input(20): # if port 20 == 1  
+            print ("Port 20 is 1/GPIO.HIGH/True - right ear pressed")
             self.bunny.move(RIGHT)
+        else:  
+            print ("Nothing is pressed")  
+            
         self.bunny.checkBorder()
         for carrot in self.carrots:
             carrot.drop()

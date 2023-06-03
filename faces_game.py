@@ -9,6 +9,7 @@ import sys
 import os
 from buttons import menuButton
 import menu as mainMenu
+import RPi.GPIO as GPIO  
 
 class facialExpression:
     def __init__(self, dir_path):
@@ -135,6 +136,11 @@ class control:
         self._display = pygame.display
         self._display_surf = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF )
                                                     #  | pygame.FULLSCREEN)
+                                                    
+        GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering  
+        GPIO.setup(21, GPIO.IN)    # set GPIO 21 as input  
+        GPIO.setup(20, GPIO.IN)    # set GPIO 20 as input  
+        
         self._running = True
         
         self.reset_state()  
@@ -144,22 +150,24 @@ class control:
             self._running = False
     
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a:
-                self._face = self.faces.getSillyFace()
-                # self._mixer.load(self.sound.getSillySound())
-                # self._mixer.play(2)
+            
+            # if event.key == pygame.K_a:
+            #     self._face = self.faces.getSillyFace()
+            #     # self._mixer.load(self.sound.getSillySound())
+            #     # self._mixer.play(2)
                 
-            elif event.key == pygame.K_s:
-                self._face = self.faces.getCuriousFace() 
-                # self._mixer.load(self.sound.getCuriousSound())
-                # self._mixer.play(2)
+            # elif event.key == pygame.K_s:
+            #     self._face = self.faces.getCuriousFace() 
+            #     # self._mixer.load(self.sound.getCuriousSound())
+            #     # self._mixer.play(2)
             
             #Exit the game in fullscreen mode    
-            elif event.key == pygame.K_ESCAPE:
+            if event.key == pygame.K_ESCAPE:
                 self._running = False
                 self.on_cleanup()
                 
-            self.home_state = False 
+            # self.home_state = False 
+            
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
@@ -169,12 +177,16 @@ class control:
         
     def on_loop(self):
         #TODO: check for the input from touchPad
-        # if self.touch.getState() == HOME:
-        #     self.face = self.faces.getHappyFace()
-        # elif self.touch.getState() == HEAD:
-        #     self.face = self.faces.getCuriousFace()
-        # elif self.touch.getState() == EAR:
-        #     self.face = self.faces.getSillyFace()
+        if GPIO.input(21): # if port 21 == 1  
+            print ("Port 21 is 1/GPIO.HIGH/True - left ear pressed")
+            self._face = self.faces.getSillyFace()
+            self.home_state = False
+        elif GPIO.input(20): # if port 20 == 1  
+            print ("Port 20 is 1/GPIO.HIGH/True - right ear pressed")
+            self._face = self.faces.getCuriousFace()
+            self.home_state = False 
+        else:  
+            print ("Nothing is pressed") 
         
         if not self.home_state:
             self._count += 1     
