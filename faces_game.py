@@ -131,10 +131,6 @@ class control:
         
     def on_init(self):
         pygame.init()
-        # mixer.init()
-        
-        # self._mixer = mixer.music
-        # self._mixer.set_volume(1.0)
         
         self._display = pygame.display
         self._display_surf = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF )
@@ -156,11 +152,15 @@ class control:
             
             # if event.key == pygame.K_a:
             #     self._face = self.faces.getSillyFace()
+            #     pygame.mixer.Sound.play(self.sound.getSillySound())
+            #     pygame.mixer.music.stop()
             #     # self._mixer.load(self.sound.getSillySound())
             #     # self._mixer.play(2)
                 
             # elif event.key == pygame.K_s:
             #     self._face = self.faces.getCuriousFace() 
+            #     pygame.mixer.Sound.play(self.sound.getCuriousSound())
+            #     pygame.mixer.music.stop()
             #     # self._mixer.load(self.sound.getCuriousSound())
             #     # self._mixer.play(2)
             
@@ -205,8 +205,8 @@ class control:
                 
     def reset_state(self):
         self._face = self.faces.getHappyFace() 
-        # self._mixer.load(self.sound.getHappySound())
-        # self._mixer.play(2)
+        pygame.mixer.Sound.play(self.sound.getHappySound())
+        pygame.mixer.music.stop()
         self._count = 0
         
         

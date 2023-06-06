@@ -146,6 +146,7 @@ class control:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 self.on_cleanup()
+        
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = event.pos  # gets mouse position
             if self.menuButtonObj.button.collidepoint(mouse_pos):
@@ -256,16 +257,14 @@ def show_menu(num_hearts,scores):
                 # pygame.quit()
                 running = False
                 # sys.exit()  
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    running = False
-                else:    
-                    _control = control()
-                    _control.on_execute()    
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos  # gets mouse position
                 if menuButtonObj.button.collidepoint(mouse_pos):
                     mainMenu.main()
+                else:
+                    _control = control()
+                    _control.on_execute()  
+                    
         clock.tick(FPS)
         
     pygame.quit()
