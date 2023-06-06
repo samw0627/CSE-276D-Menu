@@ -202,13 +202,17 @@ def menu(death_count):
         font = pygame.font.Font('freesansbold.ttf', 30)
 
         if death_count == 0:
-            text = font.render("Press any Key to Start", True, (0, 0, 0))
+            text = font.render("Press screen to Start", True, (0, 0, 0))
         else:
-            text = font.render("Press any Key to Restart", True, (0, 0, 0))
+            text = font.render("Press screen to Restart", True, (0, 0, 0))
             score = font.render("Your Score: " + str(points), True, (0, 0, 0))
             scoreRect = score.get_rect()
             scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
             SCREEN.blit(score, scoreRect)
+        instruction = font.render("Touch the screen to jump over the snake", True, (0, 0, 0))
+        instructionRect = instruction.get_rect()
+        instructionRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+        SCREEN.blit(instruction, instructionRect)
         textRect = text.get_rect()
         textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         SCREEN.blit(text, textRect)
@@ -220,12 +224,14 @@ def menu(death_count):
             if event.type == pygame.QUIT:
                 run = False
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
-                main()
+            # if event.type == pygame.KEYDOWN:
+            #     main()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos 
                 if menuButtonObj.button.collidepoint(mouse_pos):
                     # jump back to main menu
                     mainMenu.main()
+                else:
+                    main()
                 
 # menu(death_count=0)
