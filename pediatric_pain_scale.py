@@ -33,9 +33,10 @@ class faceButton:
 	Class for the pain scale buttons.
 	Each button has an associated image and full screen image.
 	"""
-	def __init__(self, imgFileName, x, y) -> None:
+	def __init__(self, imgFileName, soundFileName, x, y) -> None:
 		self.img = pygame.image.load(os.path.join("painscale_assets", imgFileName)).convert_alpha()
 		self.img = pygame.transform.scale(self.img, (FACE_WIDTH, FACE_HEIGHT))
+		self.sound = pygame.mixer.Sound(os.path.join("painscale_assets", soundFileName))
 		self.fullscreenImg =  pygame.image.load(os.path.join("painscale_assets", imgFileName))
 		self.fullscreenImgRect = self.fullscreenImg.get_rect()
 		self.button = pygame.Rect(x, y, FACE_WIDTH, FACE_HEIGHT)
@@ -46,6 +47,7 @@ def showFullScreen(screen, faceButton, mouse_pos):
     # blit on the full screen image, and update the display
     # wait specified time, then go back to the original display
     print('button was pressed at {0}'.format(mouse_pos))
+    pygame.mixer.Sound.play(faceButton.sound)
     pygame.time.wait(int(0.05 * 1000))
     screen.fill(bg)
     # self._display_surf.blit(self.display_face, TOP_LEFT)
@@ -63,12 +65,12 @@ def main():
 
 	faceWidthOffsets = FACE_WIDTH + 75
 
-	rank0Face = faceButton("Rank0Face.png", faceXStartCoords, faceYUpperRowCoords)
-	rank1Face = faceButton("Rank1Face.png", faceXStartCoords + faceWidthOffsets * 1, faceYUpperRowCoords)
-	rank2Face = faceButton("Rank2Face.png", faceXStartCoords + faceWidthOffsets * 2, faceYUpperRowCoords)
-	rank3Face = faceButton("Rank3Face.png", faceXStartCoords + faceWidthOffsets * 0, faceYLowerRowCoords)
-	rank4Face = faceButton("Rank4Face.png", faceXStartCoords + faceWidthOffsets * 1, faceYLowerRowCoords)
-	rank5Face = faceButton("Rank5Face.png", faceXStartCoords + faceWidthOffsets * 2, faceYLowerRowCoords)
+	rank0Face = faceButton("Rank0Face.png", "cat_rank0_meow.wav", faceXStartCoords, faceYUpperRowCoords)
+	rank1Face = faceButton("Rank1Face.png", "cat_rank1_meow.wav", faceXStartCoords + faceWidthOffsets * 1, faceYUpperRowCoords)
+	rank2Face = faceButton("Rank2Face.png", "cat_rank2_meow.wav", faceXStartCoords + faceWidthOffsets * 2, faceYUpperRowCoords)
+	rank3Face = faceButton("Rank3Face.png", "cat_rank3_meow.wav", faceXStartCoords + faceWidthOffsets * 0, faceYLowerRowCoords)
+	rank4Face = faceButton("Rank4Face.png", "cat_rank4_meow.wav", faceXStartCoords + faceWidthOffsets * 1, faceYLowerRowCoords)
+	rank5Face = faceButton("Rank5Face.png", "cat_rank5_meow.wav", faceXStartCoords + faceWidthOffsets * 2, faceYLowerRowCoords)
 
 	# create menu button object
 	menuButtonObj = menuButton("test_hamburg_menu.png")
