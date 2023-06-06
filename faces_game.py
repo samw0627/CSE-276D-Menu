@@ -11,6 +11,9 @@ from buttons import menuButton
 import menu as mainMenu
 import RPi.GPIO as GPIO  
 
+
+
+
 class facialExpression:
     def __init__(self, dir_path):
         self.dir_path = dir_path
@@ -84,13 +87,13 @@ class sound:
                     self.smile = Sound
             
     def getHappySound(self):
-        return self.happy
+        return pygame.mixer.Sound(self.happy)
     def getSillySound(self):
-        return self.silly
+        return pygame.mixer.Sound(self.silly)
     def getCuriousSound(self):
-        return self.curious
+        return pygame.mixer.Sound(self.curious)
     def getSmileSound(self):
-        return self.smile
+        return pygame.mixer.Sound(self.smile)
 
 class touchPad:
     def __init__(self):
@@ -161,7 +164,7 @@ class control:
             #     # self._mixer.load(self.sound.getCuriousSound())
             #     # self._mixer.play(2)
             
-            #Exit the game in fullscreen mode    
+            #Exit the game in fullscreen mode with escape key  
             if event.key == pygame.K_ESCAPE:
                 self._running = False
                 self.on_cleanup()
@@ -180,10 +183,14 @@ class control:
         if GPIO.input(21): # if port 21 == 1  
             print ("Port 21 is 1/GPIO.HIGH/True - left ear pressed")
             self._face = self.faces.getSillyFace()
+            pygame.mixer.Sound.play(self.sound.getSillySound())
+            pygame.mixer.music.stop()
             self.home_state = False
         elif GPIO.input(20): # if port 20 == 1  
             print ("Port 20 is 1/GPIO.HIGH/True - right ear pressed")
             self._face = self.faces.getCuriousFace()
+            pygame.mixer.Sound.play(self.sound.getCuriousSound())
+            pygame.mixer.music.stop()
             self.home_state = False 
         else:  
             print ("Nothing is pressed") 
