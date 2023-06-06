@@ -6,7 +6,7 @@ from buttons import menuButton
 import menu as mainMenu
 
 # TODO: 
-# Add in sounds
+# Add in sounds if time
 
 
 pygame.init()
@@ -29,6 +29,10 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.HWSURFACE
 
 
 class faceButton:
+	"""
+	Class for the pain scale buttons.
+	Each button has an associated image and full screen image.
+	"""
 	def __init__(self, imgFileName, x, y) -> None:
 		self.img = pygame.image.load(os.path.join("painscale_assets", imgFileName)).convert_alpha()
 		self.img = pygame.transform.scale(self.img, (FACE_WIDTH, FACE_HEIGHT))
@@ -73,6 +77,7 @@ def main():
 	# background = pygame.image.load(BACKGROUND_IMG) 
 	# screen.blit(background, (0, 0))
 
+	# main game loop
 	while True:
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
@@ -101,7 +106,6 @@ def main():
 
 		# draw all buttons
 		# bg = background color, otherwise the blitted image will have a background color
-		# that is the screen bg color
 		pygame.draw.rect(screen, bg, rank0Face.button) 
 		pygame.draw.rect(screen, bg, rank1Face.button) 
 		pygame.draw.rect(screen, bg, rank2Face.button)
