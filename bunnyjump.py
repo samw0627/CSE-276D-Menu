@@ -25,6 +25,8 @@ BG = [pygame.image.load(os.path.join("bunnyjump_assets/background", "Grass.png")
       pygame.image.load(os.path.join("bunnyjump_assets/background", "Ground.png")),
       pygame.image.load(os.path.join("bunnyjump_assets/background", "Sky.png"))]
 
+JUMP_SOUND = pygame.mixer.Sound("bunnyjump_assets/jump.wav")
+
 class Cloud:
     def __init__(self):
         self.x = SCREEN_WIDTH + random.randint(1000, 1200)
@@ -84,10 +86,12 @@ class Bunny:
         if self.step_index >= 15: # double check this
             self.step_index = 0
         
-        if userInput[pygame.K_UP] and not self.bunny_jump:
+        if userInput[0] and not self.bunny_jump:
+            pygame.mixer.Sound.play(JUMP_SOUND)
+            pygame.mixer.music.stop()
             self.bunny_run = False
             self.bunny_jump = True
-        elif not (self.bunny_jump or userInput[pygame.K_UP]):
+        elif not (self.bunny_jump or userInput[0]):
             self.bunny_run = True
             self.bunny_jump = False
     
@@ -162,7 +166,7 @@ def main():
                     mainMenu.main()
         
         SCREEN.fill((135, 206, 235))
-        userInput = pygame.key.get_pressed()
+        userInput = pygame.mouse.get_pressed()
         player.draw(SCREEN)
         player.update(userInput)
 
