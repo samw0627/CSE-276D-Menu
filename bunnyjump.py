@@ -134,7 +134,7 @@ def main():
     def score():
         global points, game_speed
         points += 1
-        if points % 100 == 0:
+        if points % 500 == 0:
             game_speed += 1
 
         text = font.render("Points: " + str(points), True, (0, 0, 0))
