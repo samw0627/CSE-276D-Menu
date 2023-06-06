@@ -202,7 +202,7 @@ def menu(death_count):
         font = pygame.font.Font('freesansbold.ttf', 30)
 
         if death_count == 0:
-            text = font.render("Press screen to Start", True, (0, 0, 0))
+            text = font.render("Press screen to Start\nTouch the screen to jump over the snakes", True, (0, 0, 0))
         else:
             text = font.render("Press screen to Restart", True, (0, 0, 0))
             score = font.render("Your Score: " + str(points), True, (0, 0, 0))
