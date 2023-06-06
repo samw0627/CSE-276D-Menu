@@ -220,12 +220,14 @@ def menu(death_count):
             if event.type == pygame.QUIT:
                 run = False
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
-                main()
+            # if event.type == pygame.KEYDOWN:
+            #     main()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos 
                 if menuButtonObj.button.collidepoint(mouse_pos):
                     # jump back to main menu
                     mainMenu.main()
+                else:
+                    main()
                 
 # menu(death_count=0)
