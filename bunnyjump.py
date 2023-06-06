@@ -209,7 +209,7 @@ def menu(death_count):
             scoreRect = score.get_rect()
             scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
             SCREEN.blit(score, scoreRect)
-        instructionText = font.render("Touch the screen to jump over the snake", True, (0, 0, 0))
+        instructionText = (font.render("Touch the screen to jump over the snake", True, (0, 0, 0))).get_rect()
         instructionText.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
         textRect = text.get_rect()
         textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
