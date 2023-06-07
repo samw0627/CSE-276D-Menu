@@ -207,7 +207,7 @@ def menu(death_count):
             text = font.render("Press screen to Restart", True, (0, 0, 0))
             score = font.render("Your Score: " + str(points), True, (0, 0, 0))
             scoreRect = score.get_rect()
-            scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+            scoreRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100)
             SCREEN.blit(score, scoreRect)
         instruction = font.render("Touch the screen to jump over the snake", True, (0, 0, 0))
         instructionRect = instruction.get_rect()
