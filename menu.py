@@ -7,7 +7,7 @@ import  carrots_game
 from utils import *
 
 pygame.init()
-surface = pygame.display.set_mode((WIDTH, HEIGHT))
+surface = pygame.display.set_mode((WIDTH, HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.FULLSCREEN)
 
 def start_pain_scale():
     # Do the job here !
