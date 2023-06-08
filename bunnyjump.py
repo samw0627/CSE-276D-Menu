@@ -4,12 +4,15 @@ import random
 import sys
 from buttons import menuButton
 import menu as mainMenu
+import RPi.GPIO as GPIO                                      
 
 pygame.init()
 
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1024
-SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
+GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering  
+GPIO.setup(20, GPIO.IN)    # set GPIO 20 as input
 
 RUNNING = [pygame.image.load(os.path.join("bunnyjump_assets/bunny", "Bunny.png")),
            pygame.image.load(os.path.join("bunnyjump_assets/bunny", "BunnyRun1.png")),
@@ -77,7 +80,7 @@ class Bunny:
         self.bunny_rect.x = self.X_POS
         self.bunny_rect.y = self.Y_POS
     
-    def update(self, userInput):
+    def update(self, userInput, fabric):
         if self.bunny_run:
             self.run()
         if self.bunny_jump:
@@ -86,12 +89,12 @@ class Bunny:
         if self.step_index >= 15: # double check this
             self.step_index = 0
         
-        if userInput[0] and not self.bunny_jump:
+        if (fabric or userInput[0]) and not self.bunny_jump:
             pygame.mixer.Sound.play(JUMP_SOUND)
             pygame.mixer.music.stop()
             self.bunny_run = False
             self.bunny_jump = True
-        elif not (self.bunny_jump or userInput[0]):
+        elif not (self.bunny_jump or userInput[0] or fabric):
             self.bunny_run = True
             self.bunny_jump = False
     
@@ -167,8 +170,11 @@ def main():
         
         SCREEN.fill((135, 206, 235))
         userInput = pygame.mouse.get_pressed()
+        fabric = False
+        if GPIO.input(20):
+            fabric = True
         player.draw(SCREEN)
-        player.update(userInput)
+        player.update(userInput, fabric)
 
         if len(obstacles) == 0:
             obstacles.append(Snake())
