@@ -133,8 +133,7 @@ class control:
         pygame.init()
         
         self._display = pygame.display
-        self._display_surf = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF )
-                                                    #  | pygame.FULLSCREEN)
+        self._display_surf = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.FULLSCREEN)
                                                     
         GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering  
         GPIO.setup(21, GPIO.IN)    # set GPIO 21 as input  

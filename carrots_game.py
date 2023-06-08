@@ -9,10 +9,9 @@ from buttons import menuButton
 import menu as mainMenu
 import RPi.GPIO as GPIO  
 
-# pygame.init()
+# init()
 clock = pygame.time.Clock()
-# | pygame.FULLSCREEN) for full screen
-_display_surf = pygame.display.set_mode((WIDTH, HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
+_display_surf = pygame.display.set_mode((WIDTH, HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.FULLSCREEN)
 GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering  
 GPIO.setup(21, GPIO.IN)    # set GPIO 21 as input  
 GPIO.setup(20, GPIO.IN)    # set GPIO 20 as input                                      
