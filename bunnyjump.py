@@ -1,3 +1,9 @@
+"""
+This file contains the code for the bunny jumping game,
+where the user plays as a bunny trying to jump over as many
+snakes as possible. Inspiration for this game from 
+https://github.com/codewmax/chrome-dinosaur.
+"""
 import pygame
 import os
 import random
@@ -8,19 +14,22 @@ import RPi.GPIO as GPIO
 
 pygame.init()
 
+# initializing the window size to fit the LCD tablet
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1024
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
+
 GPIO.setmode(GPIO.BCM)     # set up BCM GPIO numbering  
 GPIO.setup(20, GPIO.IN)    # set GPIO 20 as input
 
-RUNNING = [pygame.image.load(os.path.join("bunnyjump_assets/bunny", "Bunny.png")),
-           pygame.image.load(os.path.join("bunnyjump_assets/bunny", "BunnyRun1.png")),
-           pygame.image.load(os.path.join("bunnyjump_assets/bunny", "BunnyRun2.png"))] 
+# initializing assets for game animations and sound
+RUNNING = [pygame.image.load("bunnyjump_assets/bunny/Bunny.png"),
+           pygame.image.load("bunnyjump_assets/bunny/BunnyRun1.png"),
+           pygame.image.load("bunnyjump_assets/bunny/BunnyRun2.png")] 
 
-JUMPING = pygame.image.load(os.path.join("bunnyjump_assets/bunny", "BunnyRun2.png"))
+JUMPING = pygame.image.load("bunnyjump_assets/bunny/BunnyRun2.png")
 
-SNAKE = pygame.image.load(os.path.join("bunnyjump_assets/snake", "Snake.png"))
+SNAKE = pygame.image.load("bunnyjump_assets/snake/Snake.png")
 
 CLOUD = pygame.image.load(os.path.join("bunnyjump_assets/background", "Cloud.png"))
 
@@ -30,63 +39,74 @@ BG = [pygame.image.load(os.path.join("bunnyjump_assets/background", "Grass.png")
 
 JUMP_SOUND = pygame.mixer.Sound("bunnyjump_assets/jump.wav")
 
+# Class for the cloud object in the background
 class Cloud:
+    # initializing where the first cloud should be generated
     def __init__(self):
         self.x = SCREEN_WIDTH + random.randint(1000, 1200)
         self.y = random.randint(50, 100)
         self.image = CLOUD
         self.width = self.image.get_width()
     
+    # updating the position of the cloud as the bunny moves across the screen
     def update(self):
-        self.x -= game_speed
-        if self.x < -self.width:
+        self.x -= game_speed # moving the cloud at the same speed as the game
+        if self.x < -self.width: # if the cloud has moved past the end of the screen, reset its position
             self.x = SCREEN_WIDTH + random.randint(1500, 2000)
             self.y = random.randint(50, 100)
-
+    
+    # drawing the cloud on the game screen
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
 
+# Class for the snake object that the user will try to jump over 
 class Snake:
+    # initializing where the first snake should be generated
     def __init__(self):
         self.image = SNAKE
         self.rect = self.image.get_rect()
         self.rect.x = SCREEN_WIDTH
         self.rect.y = 318
     
+    # updating the position of the snake as the bunny moves across the screen
     def update(self):
-        self.rect.x -= game_speed
-        if self.rect.x < -self.rect.width:
-            obstacles.pop()
+        self.rect.x -= game_speed # moving the snake at the same speed as the game
+        if self.rect.x < -self.rect.width: # if the snake has moved past the end of the screen, remove it from the list of snakes
+            snakes.pop()
     
+    # drawing the snake on the game screen
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
+# Class for the bunny object that the user will play as
 class Bunny:
     X_POS = 30
     Y_POS = 316
     JUMP_VEL = 8.5
 
+    # initializing where the bunny will start from and its instance variables
     def __init__(self):
-        self.run_img = RUNNING
-        self.jump_img = JUMPING
+        self.run_img = RUNNING # the images for when the bunny is running
+        self.jump_img = JUMPING # the image for when the bunny is jumping
 
         self.bunny_run = True
         self.bunny_jump = False
 
         self.step_index = 0
-        self.jump_vel = self.JUMP_VEL
+        self.jump_vel = self.JUMP_VEL # determines how high the bunny will jump into the air
         self.image = self.run_img[0]
         self.bunny_rect  = self.image.get_rect()
         self.bunny_rect.x = self.X_POS
         self.bunny_rect.y = self.Y_POS
     
+    # updating the state of the bunny based on user actions
     def update(self, userInput, fabric):
         if self.bunny_run:
             self.run()
         if self.bunny_jump:
             self.jump()
         
-        if self.step_index >= 15: # double check this
+        if self.step_index >= 15:
             self.step_index = 0
         
         if (fabric or userInput[0]) and not self.bunny_jump:
@@ -118,7 +138,7 @@ class Bunny:
       screen.blit(self.image, (self.bunny_rect.x, self.bunny_rect.y))
 
 def main():
-    global game_speed, x_pos_bg, y_pos_bg, points, obstacles
+    global game_speed, x_pos_bg, y_pos_bg, points, snakes
     run = True
     clock = pygame.time.Clock()
     player = Bunny()
@@ -128,7 +148,7 @@ def main():
     y_pos_bg = 348
     points = 0
     font = pygame.font.Font('freesansbold.ttf', 20)
-    obstacles = []
+    snakes = []
     death_count = 0
 
     # create menu button object
@@ -153,7 +173,6 @@ def main():
             for j in range(1, 14):
                 SCREEN.blit(BG[1], (image_width*i + x_pos_bg, image_width*j + y_pos_bg))
         if x_pos_bg <= -image_width:
-            # SCREEN.blit(BG[0], (image_width + x_pos_bg, y_pos_bg))
             x_pos_bg = 0
         x_pos_bg -= game_speed
 
@@ -176,14 +195,13 @@ def main():
         player.draw(SCREEN)
         player.update(userInput, fabric)
 
-        if len(obstacles) == 0:
-            obstacles.append(Snake())
+        if len(snakes) == 0:
+            snakes.append(Snake())
         
-        for obstacle in obstacles:
+        for obstacle in snakes:
             obstacle.draw(SCREEN)
             obstacle.update()
             if player.bunny_rect.colliderect(obstacle.rect):
-                # pygame.draw.rect(SCREEN, (255, 0, 0), player.bunny_rect, 2)
                 pygame.time.delay(1000)
                 death_count += 1
                 menu(death_count)
