@@ -1,8 +1,10 @@
+# This file contains all the magic number and file path 
+# for falling carrots game and facial expression mode
 #Control
 TOP_LEFT = (0,0)
 OPEN_DURATION = 360
 BLINK_DURATION = 2
-EXPRESSION_DURATION = 600
+EXPRESSION_DURATION = 300
 HEIGHT = 600
 WIDTH = 1024
 

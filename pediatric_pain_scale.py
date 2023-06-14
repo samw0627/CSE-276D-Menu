@@ -15,8 +15,11 @@ fps = 60
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1024
 
-FACE_HEIGHT = 150
-FACE_WIDTH = 256
+# FACE_HEIGHT = 150
+# FACE_WIDTH = 256
+# for 1 row
+FACE_HEIGHT = 75
+FACE_WIDTH = 128
 
 WAIT_TIME_SECONDS = 1
 
@@ -59,18 +62,28 @@ def showFullScreen(screen, faceButton, mouse_pos):
 
 def main(): 
 	# create all facebutton objects
-	faceXStartCoords = 50
-	faceYUpperRowCoords = 125
-	faceYLowerRowCoords = 375
 
-	faceWidthOffsets = FACE_WIDTH + 75
+	faceXStartCoords = 40
+	# for 2 rows
+	# faceYUpperRowCoords = 125
+	# faceYLowerRowCoords = 375
+	# faceWidthOffsets = FACE_WIDTH + 75
+
+
+	faceYUpperRowCoords = 250
+	faceYLowerRowCoords = faceYUpperRowCoords
+	faceWidthOffsets = FACE_WIDTH + 35
+	
 
 	rank0Face = faceButton("Rank0Face.png", "cat_rank0_meow.wav", faceXStartCoords, faceYUpperRowCoords)
 	rank1Face = faceButton("Rank1Face.png", "cat_rank1_meow.wav", faceXStartCoords + faceWidthOffsets * 1, faceYUpperRowCoords)
 	rank2Face = faceButton("Rank2Face.png", "cat_rank2_meow.wav", faceXStartCoords + faceWidthOffsets * 2, faceYUpperRowCoords)
-	rank3Face = faceButton("Rank3Face.png", "cat_rank3_meow.wav", faceXStartCoords + faceWidthOffsets * 0, faceYLowerRowCoords)
-	rank4Face = faceButton("Rank4Face.png", "cat_rank4_meow.wav", faceXStartCoords + faceWidthOffsets * 1, faceYLowerRowCoords)
-	rank5Face = faceButton("Rank5Face.png", "cat_rank5_meow.wav", faceXStartCoords + faceWidthOffsets * 2, faceYLowerRowCoords)
+	rank3Face = faceButton("Rank3Face.png", "cat_rank3_meow.wav", faceXStartCoords + faceWidthOffsets * 3, faceYLowerRowCoords)
+	rank4Face = faceButton("Rank4Face.png", "cat_rank4_meow.wav", faceXStartCoords + faceWidthOffsets * 4, faceYLowerRowCoords)
+	rank5Face = faceButton("Rank5Face.png", "cat_rank5_meow.wav", faceXStartCoords + faceWidthOffsets * 5, faceYLowerRowCoords)
+
+	# resize things for 1 row
+
 
 	# create menu button object
 	menuButtonObj = menuButton("test_hamburg_menu.png")
